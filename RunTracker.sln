@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "tests\Domain.UnitTests\Domain.UnitTests.csproj", "{907B1AB0-592E-40E3-9F46-398C3F4C5151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "tests\ArchitectureTests\ArchitectureTests.csproj", "{08B25B39-2F37-4C56-8F73-60A46386A38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests", "tests\ArchitectureTests\ArchitectureTests.csproj", "{08B25B39-2F37-4C56-8F73-60A46386A38D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{08B25B39-2F37-4C56-8F73-60A46386A38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B25B39-2F37-4C56-8F73-60A46386A38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B25B39-2F37-4C56-8F73-60A46386A38D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{159CF39A-70C4-400B-AB63-E084FB7F2CC3} = {5102F608-E930-488D-B3D1-627B7BB38E60}
 		{907B1AB0-592E-40E3-9F46-398C3F4C5151} = {B534D252-12DA-4D0A-ACBA-07D9528608F6}
 		{08B25B39-2F37-4C56-8F73-60A46386A38D} = {B534D252-12DA-4D0A-ACBA-07D9528608F6}
+		{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706} = {5102F608-E930-488D-B3D1-627B7BB38E60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F15FEF07-5463-44B3-A20C-278A3ECBAF3A}

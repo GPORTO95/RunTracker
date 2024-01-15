@@ -1,4 +1,4 @@
-﻿namespace Domain.Abstractions;
+﻿namespace SharedKernel;
 
 public abstract class Entity
 {

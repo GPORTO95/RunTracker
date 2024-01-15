@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions;
+﻿using SharedKernel;
 using FluentAssertions;
 using NetArchTest.Rules;
 using System.Reflection;

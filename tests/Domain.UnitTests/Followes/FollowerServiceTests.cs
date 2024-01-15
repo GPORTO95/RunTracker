@@ -9,7 +9,7 @@ public class FollowerServiceTests
 {
     private readonly FollowerService _followerService;
     private readonly IFollowerRepository _followerRepositoryMock;
-    private static readonly Email Email = Email.Create("test@tes.com");
+    private static readonly Email Email = Email.Create("test@tes.com").Value;
     private static readonly Name Name = new Name("Full name");
     private static readonly DateTime UtcNow = DateTime.UtcNow;
 

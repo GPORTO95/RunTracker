@@ -1,3 +1,3 @@
-﻿namespace Domain.Abstractions;
+﻿namespace SharedKernel;
 
 public interface IDomainEvent { }

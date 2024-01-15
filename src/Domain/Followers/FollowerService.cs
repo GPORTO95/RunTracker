@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions;
+﻿using SharedKernel;
 using Domain.Users;
 
 namespace Domain.Followers;
