@@ -2,6 +2,7 @@
 using Domain.Users;
 using FluentAssertions;
 using NSubstitute;
+using SharedKernel;
 
 namespace Domain.UnitTests.Followes;
 
@@ -16,7 +17,10 @@ public class FollowerServiceTests
     public FollowerServiceTests()
     {
         _followerRepositoryMock = Substitute.For<IFollowerRepository>();
-        _followerService = new FollowerService(_followerRepositoryMock);
+        IDateTimeProvider dateTimeProvider = Substitute.For<IDateTimeProvider>();
+        dateTimeProvider.UtcNow.Returns(UtcNow);
+
+        _followerService = new FollowerService(_followerRepositoryMock, dateTimeProvider);
     }
 
     [Fact]
@@ -26,7 +30,7 @@ public class FollowerServiceTests
         var user = User.Create(Email, Name, false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, user, UtcNow, default);
+        var result = await _followerService.StartFollowingAsync(user, user, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.SameUser);
@@ -40,7 +44,7 @@ public class FollowerServiceTests
         var followed = User.Create(Email, Name, false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, followed, UtcNow, default);
+        var result = await _followerService.StartFollowingAsync(followed, followed, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.NonPublicProfile);
@@ -58,7 +62,7 @@ public class FollowerServiceTests
             .Returns(true);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, followed, UtcNow, default);
+        var result = await _followerService.StartFollowingAsync(followed, followed, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.AlreadyFollowing);
@@ -76,7 +80,7 @@ public class FollowerServiceTests
             .Returns(false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, followed, UtcNow, default);
+        var result = await _followerService.StartFollowingAsync(user, followed, default);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -94,7 +98,7 @@ public class FollowerServiceTests
             .Returns(false);
 
         // Act
-        await _followerService.StartFollowingAsync(user, followed, UtcNow, default);
+        await _followerService.StartFollowingAsync(followed, followed, default);
 
         // Assert
         _followerRepositoryMock.Received(1)
