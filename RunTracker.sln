@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "tests\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests", "tests\ArchitectureTests\ArchitectureTests.csproj", "{08B25B39-2F37-4C56-8F73-60A46386A38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{9DFC18A5-723A-4D0B-9D5A-C4DFC4A4C706}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B745BC9-4B8E-407B-9C27-BFCCE4E0248D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\.editorconfig = ..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\.editorconfig
+		..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\Directory.Build.props = ..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
