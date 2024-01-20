@@ -9,12 +9,12 @@ namespace Application.Followers;
 internal sealed class StartFollowingCommandHandler : ICommandHandler<StartFollowingCommand>
 {
     private readonly IUserRepository _userRepository;
-    private readonly FollowerService _followerService;
+    private readonly IFollowerService _followerService;
     private readonly IUnitOfWork _unitOfWork;
 
     public StartFollowingCommandHandler(
         IUserRepository userRepository,
-        FollowerService followerService,
+        IFollowerService followerService,
         IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;

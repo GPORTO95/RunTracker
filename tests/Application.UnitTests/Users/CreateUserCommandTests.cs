@@ -58,7 +58,7 @@ public class CreateUserCommandTests
     {
         // Arrange
         _userRepositoryMock.IsEmailUniqueAsync(Arg.Is<Email>(e => e.Value == Command.Email))
-            .Returns(false);
+            .Returns(true);
 
         // Act
         Result result = await _handler.Handle(Command, default);
@@ -72,7 +72,7 @@ public class CreateUserCommandTests
     {
         // Arrange
         _userRepositoryMock.IsEmailUniqueAsync(Arg.Is<Email>(e => e.Value == Command.Email))
-            .Returns(false);
+            .Returns(true);
 
         // Act
         Result result = await _handler.Handle(Command, default);
@@ -86,7 +86,7 @@ public class CreateUserCommandTests
     {
         // Arrange
         _userRepositoryMock.IsEmailUniqueAsync(Arg.Is<Email>(e => e.Value == Command.Email))
-            .Returns(false);
+            .Returns(true);
 
         // Act
         Result<Guid> result = await _handler.Handle(Command, default);
