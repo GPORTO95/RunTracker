@@ -22,10 +22,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore
-        run: dotnet restore ./RunTrackr.sln
+        run: dotnet restore ./RunTracker.sln
 
       - name: Build
-        run: dotnet build ./RunTrackr.sln --configuration Release --no-restore
+        run: dotnet build ./RunTracker.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test ./RunTrackr.sln --configuration Release --no-restore --no-build
+        run: dotnet test ./RunTracker.sln --configuration Release --no-restore --no-build
