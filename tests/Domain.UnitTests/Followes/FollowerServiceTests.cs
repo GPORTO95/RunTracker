@@ -17,6 +17,7 @@ public class FollowerServiceTests
     public FollowerServiceTests()
     {
         _followerRepositoryMock = Substitute.For<IFollowerRepository>();
+
         IDateTimeProvider dateTimeProvider = Substitute.For<IDateTimeProvider>();
         dateTimeProvider.UtcNow.Returns(UtcNow);
 
@@ -30,7 +31,7 @@ public class FollowerServiceTests
         var user = User.Create(Email, Name, false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, user, default);
+        Result result = await _followerService.StartFollowingAsync(user, user, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.SameUser);
@@ -44,7 +45,7 @@ public class FollowerServiceTests
         var followed = User.Create(Email, Name, false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(followed, followed, default);
+        Result result = await _followerService.StartFollowingAsync(user, followed, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.NonPublicProfile);
@@ -62,7 +63,7 @@ public class FollowerServiceTests
             .Returns(true);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(followed, followed, default);
+        Result result = await _followerService.StartFollowingAsync(user, followed, default);
 
         // Assert
         result.Error.Should().Be(FollowerErrors.AlreadyFollowing);
@@ -80,7 +81,7 @@ public class FollowerServiceTests
             .Returns(false);
 
         // Act
-        var result = await _followerService.StartFollowingAsync(user, followed, default);
+        Result result = await _followerService.StartFollowingAsync(user, followed, default);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -98,7 +99,7 @@ public class FollowerServiceTests
             .Returns(false);
 
         // Act
-        await _followerService.StartFollowingAsync(followed, followed, default);
+        await _followerService.StartFollowingAsync(user, followed, default);
 
         // Assert
         _followerRepositoryMock.Received(1)
