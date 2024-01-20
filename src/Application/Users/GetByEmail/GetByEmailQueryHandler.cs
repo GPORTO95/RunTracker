@@ -21,7 +21,7 @@ internal sealed class GetByEmailQueryHandler
     {
         using IDbConnection connection = _dbConnectionFactory.CreateOpenConnection();
 
-        const string sql = 
+        const string sql =
             """
             SELECT u.Id, u.Email, u.Name, u.HasPublicProfile
             FROM Users u
