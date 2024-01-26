@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "src\SharedK
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B745BC9-4B8E-407B-9C27-BFCCE4E0248D}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Milan\RunTracker\8 - How to Implement the CQRS Pattern in Clean Architecture (from scratch)\after\running_tracker\.editorconfig = ..\..\Milan\RunTracker\8 - How to Implement the CQRS Pattern in Clean Architecture (from scratch)\after\running_tracker\.editorconfig
+		.editorconfig = .editorconfig
 		..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\Directory.Build.props = ..\..\Milan\RunTracker\7 - Continuous Integration Will Give You Superpowers\after\running_tracker\Directory.Build.props
 	EndProjectSection
 EndProject
