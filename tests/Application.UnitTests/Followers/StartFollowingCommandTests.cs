@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Data;
-using Application.Followers;
+using Application.Followers.StartFollowing;
 using Domain.Followers;
 using Domain.Users;
 using FluentAssertions;

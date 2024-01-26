@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Data;
+using Domain.Followers;
 using Domain.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using SharedKernel;
 
 namespace Infrastructure.Data;
 
-internal sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
+public sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
 {
     private readonly IPublisher _publisher;
 
@@ -17,6 +18,8 @@ internal sealed class ApplicationDbContext : DbContext, IApplicationDbContext, I
     }
 
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Follower> Followers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

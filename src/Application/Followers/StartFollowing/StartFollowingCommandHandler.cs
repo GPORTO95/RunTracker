@@ -4,7 +4,7 @@ using Domain.Followers;
 using Domain.Users;
 using SharedKernel;
 
-namespace Application.Followers;
+namespace Application.Followers.StartFollowing;
 
 internal sealed class StartFollowingCommandHandler : ICommandHandler<StartFollowingCommand>
 {

@@ -1,9 +1,10 @@
 using Application;
 using Infrastructure;
 using Web.Api.Endpoints;
+using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
