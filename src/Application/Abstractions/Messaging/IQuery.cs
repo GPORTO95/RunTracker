@@ -1,6 +1,9 @@
-﻿namespace Application.Abstractions.Messaging;
+﻿using MediatR;
+using SharedKernel;
 
-public interface IQuery<TResponse>
+namespace Application.Abstractions.Messaging;
+
+public interface IQuery<TResponse> : IRequest<Result<TResponse>>
 {
 }
 

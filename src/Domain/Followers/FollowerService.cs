@@ -3,7 +3,7 @@ using Domain.Users;
 
 namespace Domain.Followers;
 
-public sealed class FollowerService
+public sealed class FollowerService : IFollowerService
 {
     private readonly IFollowerRepository _followerRepository;
     private readonly IDateTimeProvider _dateTimeProvider;
