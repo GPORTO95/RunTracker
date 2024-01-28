@@ -2,7 +2,7 @@
 
 namespace Application.Users.GetById;
 
-public sealed record GetByIdQuery(Guid UserId) : ICachedQuery<UserResponse>
+public sealed record GetUserByIdQuery(Guid UserId) : ICachedQuery<UserResponse>
 {
     public string CacheKey => $"users-by-id-{UserId}";
 
