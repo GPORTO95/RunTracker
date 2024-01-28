@@ -20,7 +20,7 @@ public static class UserQueries
             new { UserId = id});
     }
 
-    public static async Task<UserDto> GetByIdAsyncEf(
+    public static async Task<UserDto> GetByIdAsyncEFCore(
         this IApplicationDbContext dbContext,
         Guid id,
         CancellationToken cancellationToken)
