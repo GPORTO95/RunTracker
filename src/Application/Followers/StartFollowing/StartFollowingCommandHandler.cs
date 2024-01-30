@@ -28,14 +28,14 @@ internal sealed class StartFollowingCommandHandler : ICommandHandler<StartFollow
 
         if (user is null)
         {
-            return UserErrors.NotFound(command.UserId);
+            return Result.Failure(UserErrors.NotFound(command.UserId));
         }
 
         User? followed = await _userRepository.GetByIdAsync(command.FollowedId, cancellationToken);
 
         if (followed is null)
         {
-            return UserErrors.NotFound(command.FollowedId);
+            return Result.Failure(UserErrors.NotFound(command.FollowedId));
         }
 
         Result result = await _followerService.StartFollowingAsync(

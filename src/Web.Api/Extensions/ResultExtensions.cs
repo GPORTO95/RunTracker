@@ -1,4 +1,5 @@
-﻿using SharedKernel;
+﻿using Microsoft.AspNetCore.Http;
+using SharedKernel;
 
 namespace Web.Api.Extensions;
 
@@ -12,29 +13,41 @@ public static class ResultExtensions
         }
 
         return Results.Problem(
-            statusCode: StatusCodes.Status400BadRequest,
-            title: "Bad Request",
-            type: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            statusCode: GetStatusCode(result.Error.Type),
+            title: GetTitle(result.Error.Type),
+            type: GetType(result.Error.Type),
             extensions: new Dictionary<string, object?>
             {
                 { "errors", new { result.Error } }
             });
-    }
 
-    public static IResult ToNotFoundProblemDetails(this Result result)
-    {
-        if (result.IsSuccess)
-        {
-            throw new InvalidOperationException("Can't convert success result to problem");
-        }
-
-        return Results.Problem(
-            statusCode: StatusCodes.Status404NotFound,
-            title: "Not Found",
-            type: "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-            extensions: new Dictionary<string, object?>
+        static int GetStatusCode(ErrorType errorType) =>
+            errorType switch
             {
-                { "errors", new { result.Error } }
-            });
+                ErrorType.Validation => StatusCodes.Status400BadRequest,
+                ErrorType.NotFound => StatusCodes.Status404NotFound,
+                ErrorType.Conflict => StatusCodes.Status409Conflict,
+                _ => StatusCodes.Status500InternalServerError
+            };
+
+        static string GetTitle(ErrorType errorType) =>
+            errorType switch
+            {
+                ErrorType.Validation => "Bad Request",
+                ErrorType.NotFound => "Not Found",
+                ErrorType.Conflict => "Conflict",
+                _ => "Server Failure"
+            };
+
+        static string GetType(ErrorType statusCode) =>
+            statusCode switch
+            {
+                ErrorType.Validation => "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                ErrorType.NotFound => "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+                ErrorType.Conflict => "https://tools.ietf.org/html/rfc7231#section-6.5.8",
+                _ => "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+            };
+
+
     }
 }

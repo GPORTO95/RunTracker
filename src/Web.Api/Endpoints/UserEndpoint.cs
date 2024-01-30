@@ -33,7 +33,7 @@ public static class UserEndpoint
 
             Result<UserResponse> result = await sender.Send(query);
 
-            return result.IsSuccess ? Results.Ok(result.Value) : result.ToNotFoundProblemDetails();
+            return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
         });
     }
 }
