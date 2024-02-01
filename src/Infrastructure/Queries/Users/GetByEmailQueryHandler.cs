@@ -1,18 +1,20 @@
-﻿using Application.Abstractions.Data;
+﻿using System.Data;
 using Application.Abstractions.Messaging;
+using Application.Users;
+using Application.Users.GetByEmail;
 using Dapper;
 using Domain.Users;
+using Infrastructure.Data;
 using SharedKernel;
-using System.Data;
 
-namespace Application.Users.GetByEmail;
+namespace Infrastructure.Users.GetByEmail;
 
 internal sealed class GetByEmailQueryHandler
     : IQueryHandler<GetByEmailQuery, UserResponse>
 {
-    private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly DbConnectionFactory _dbConnectionFactory;
 
-    public GetByEmailQueryHandler(IDbConnectionFactory dbConnectionFactory)
+    public GetByEmailQueryHandler(DbConnectionFactory dbConnectionFactory)
     {
         _dbConnectionFactory = dbConnectionFactory;
     }

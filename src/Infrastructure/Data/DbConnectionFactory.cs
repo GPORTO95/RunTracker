@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Infrastructure.Data;
 
-internal sealed class DbConnectionFactory : IDbConnectionFactory
+internal sealed class DbConnectionFactory
 {
     private readonly string _connectionString;
 

@@ -1,4 +1,5 @@
-﻿using Application.Followers.StartFollowing;
+﻿using Application.Followers.GetFollowersStats;
+using Application.Followers.StartFollowing;
 using Application.Users;
 using Application.Users.Create;
 using Application.Users.GetById;
@@ -32,6 +33,15 @@ public static class UserEndpoint
             var query = new GetUserByIdQuery(userId);
 
             Result<UserResponse> result = await sender.Send(query);
+
+            return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
+        });
+
+        app.MapGet("api/users/{userId}/follower-stats", async (Guid userId, ISender sender) =>
+        {
+            var query = new GetFollowerStatsQuery(userId);
+
+            Result<FollowerStatsResponse> result = await sender.Send(query);
 
             return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
         });

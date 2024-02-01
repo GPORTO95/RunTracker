@@ -23,15 +23,18 @@ public static class DependencyInjection
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+
         string? connectionString = configuration.GetConnectionString("Database");
         Ensure.NotNullOrEmpty(connectionString);
 
-        services.AddTransient<IDbConnectionFactory>(_ => new DbConnectionFactory(connectionString));
+        services.AddTransient(_ => new DbConnectionFactory(connectionString));
 
         services.AddSingleton<PublishDomainEventsInterceptor>();
         services.AddSingleton<InsertOutboxMessageInterceptor>();
 
-        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             (sp, options) => options
                 .UseSqlServer(connectionString)
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessageInterceptor>()));

@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Users;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
@@ -8,9 +9,9 @@ namespace Application.Users.GetById;
 
 internal sealed class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
-    private readonly IApplicationDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
 
-    public GetUserByIdQueryHandler(IApplicationDbContext dbContext)
+    public GetUserByIdQueryHandler(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
