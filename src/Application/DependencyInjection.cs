@@ -12,6 +12,7 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
+            config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
         });
 
