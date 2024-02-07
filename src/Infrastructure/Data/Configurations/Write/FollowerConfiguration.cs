@@ -3,7 +3,7 @@ using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configurations;
+namespace Infrastructure.Data.Configurations.Write;
 
 internal sealed class FollowerConfiguration : IEntityTypeConfiguration<Follower>
 {

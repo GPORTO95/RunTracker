@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ApplicationWriteDbContext))]
     [Migration("20240130003515_Add_OutboxMessages")]
     partial class Add_OutboxMessages
     {

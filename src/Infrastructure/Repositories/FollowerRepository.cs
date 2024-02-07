@@ -6,9 +6,9 @@ namespace Infrastructure.Repositories;
 
 internal sealed class FollowerRepository : IFollowerRepository
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationWriteDbContext _dbContext;
 
-    public FollowerRepository(ApplicationDbContext dbContext)
+    public FollowerRepository(ApplicationWriteDbContext dbContext)
     {
         _dbContext = dbContext;
     }

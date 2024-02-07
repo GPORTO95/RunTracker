@@ -9,9 +9,9 @@ namespace Application.Users.GetById;
 
 internal sealed class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationReadDbContext _dbContext;
 
-    public GetUserByIdQueryHandler(ApplicationDbContext dbContext)
+    public GetUserByIdQueryHandler(ApplicationReadDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -24,8 +24,8 @@ internal sealed class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, 
             .Select(u => new UserResponse
             {
                 Id = u.Id,
-                Email = u.Email.Value,
-                Name = u.Name.Value,
+                Email = u.Email,
+                Name = u.Name,
                 HasPublicProfile = u.HasPublicProfile
             })
             .FirstOrDefaultAsync(cancellationToken);

@@ -6,9 +6,9 @@ namespace Infrastructure.Repositories;
 
 internal sealed class UserRepository : IUserRepository
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationWriteDbContext _dbContext;
 
-    public UserRepository(ApplicationDbContext dbContext)
+    public UserRepository(ApplicationWriteDbContext dbContext)
     {
         _dbContext = dbContext;
     }

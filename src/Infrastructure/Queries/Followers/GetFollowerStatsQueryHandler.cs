@@ -10,9 +10,9 @@ namespace Infrastructure.Queries.Followers;
 internal sealed class GetFollowerStatsQueryHandler
     : IQueryHandler<GetFollowerStatsQuery, FollowerStatsResponse>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationReadDbContext _dbContext;
 
-    public GetFollowerStatsQueryHandler(ApplicationDbContext dbContext)
+    public GetFollowerStatsQueryHandler(ApplicationReadDbContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -34,12 +34,17 @@ public static class DependencyInjection
         services.AddSingleton<PublishDomainEventsInterceptor>();
         services.AddSingleton<InsertOutboxMessageInterceptor>();
 
-        services.AddDbContext<ApplicationDbContext>(
+        services.AddDbContext<ApplicationWriteDbContext>(
             (sp, options) => options
                 .UseSqlServer(connectionString)
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessageInterceptor>()));
 
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        services.AddDbContext<ApplicationReadDbContext>(
+            options => options
+            .UseSqlServer(connectionString)
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationWriteDbContext>());
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IFollowerRepository, FollowerRepository>();
