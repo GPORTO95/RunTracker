@@ -1,0 +1,37 @@
+﻿using System.Net;
+using System.Net.Http.Json;
+using Api.FunctionalTests.Abstractions;
+using Api.FunctionalTests.Contracts;
+using Api.FunctionalTests.Extensions;
+using Application.Users;
+using Application.Users.Create;
+using FluentAssertions;
+
+namespace Api.FunctionalTests.Users;
+
+public class CreateUserTests : BaseFunctionalTest
+{
+    public CreateUserTests(FunctionalTestWebAppFactory factory)
+        : base(factory)
+    {
+    }
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenEmailIsMissing()
+    {
+        // Arrange
+        var request = new CreateUserRequest("", "name", true);
+
+        // Act
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        CustomProblemDetails problemDetails = await response.GetProblemDetails();
+
+        problemDetails.Errors.Select(e => e.Code
+            .Should()
+            .Contain("", UserErrorCodes.CreateUser.MissingEmail, UserErrorCodes.CreateUser.InvalidEmail));
+    }
+}
