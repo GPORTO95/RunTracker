@@ -32,12 +32,8 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyn
     }
 
     public Task InitializeAsync()
-    {
-        return _msSqlContainer.StartAsync();
-    }
+        => _msSqlContainer.StartAsync();
 
-    Task IAsyncLifetime.DisposeAsync()
-    {
-        return _msSqlContainer.StopAsync();
-    }
+    public Task DisposeAsync()
+        => _msSqlContainer.DisposeAsync().AsTask();
 }
