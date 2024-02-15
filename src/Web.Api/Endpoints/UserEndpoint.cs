@@ -6,6 +6,7 @@ using Application.Users.GetById;
 using MediatR;
 using SharedKernel;
 using Web.Api.Extensions;
+using Web.Api.Infrastructure;
 
 namespace Web.Api.Endpoints;
 
@@ -13,11 +14,19 @@ public static class UserEndpoint
 {
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("api/users", async (CreateUserCommand command, ISender sender) =>
+        app.MapPost("api/users", async (
+            CreateUserRequest request, 
+            ISender sender,
+            CancellationToken cancellationToken) =>
         {
-            Result<Guid> result = await sender.Send(command);
+            var command = new CreateUserCommand(
+                request.Email,
+                request.Name,
+                request.HasPublicProfile);
 
-            return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
+            Result<Guid> result = await sender.Send(command, cancellationToken);
+
+            return result.Match(Results.Ok, CustomResults.Problem);
         });
 
         app.MapPost("api/users/{userId}/follow/{followedId}",

@@ -41,3 +41,5 @@ app.UseExceptionHandler();
 app.MapUserEndpoints();
 
 app.Run();
+
+public partial class Program { };

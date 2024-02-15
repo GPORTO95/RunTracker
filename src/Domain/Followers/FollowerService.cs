@@ -20,17 +20,17 @@ public sealed class FollowerService : IFollowerService
     {
         if (user.Id == followed.Id)
         {
-            return FollowerErrors.SameUser;
+            return Result.Failure<Follower>(FollowerErrors.SameUser);
         }
 
         if (!followed.HasPublicProfile)
         {
-            return FollowerErrors.NonPublicProfile;
+            return Result.Failure<Follower>(FollowerErrors.NonPublicProfile);
         }
 
         if (await _followerRepository.IsAlreadyFollowingAsync(user.Id, followed.Id, cancellationToken))
         {
-            return FollowerErrors.AlreadyFollowing;
+            return Result.Failure<Follower>(FollowerErrors.AlreadyFollowing);
         }
 
         var follower = Follower.Create(user.Id, followed.Id, _dateTimeProvider.UtcNow);
