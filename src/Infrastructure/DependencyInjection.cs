@@ -51,7 +51,7 @@ public static class DependencyInjection
 
         services.AddTransient<INotificationService, NotificationService>();
 
-        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
 
         services.AddSingleton<ICacheService, CacheService>();
     }
