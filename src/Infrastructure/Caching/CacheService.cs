@@ -2,7 +2,6 @@
 using System.Text.Json;
 using Application.Abstractions.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Infrastructure.Caching;
 
@@ -21,7 +20,7 @@ internal sealed class CacheService : ICacheService
     {
         byte[]? bytes = await _cache.GetAsync(key, cancellationToken);
 
-        return bytes is null ? default :  Deserialize<T>(bytes);
+        return bytes is null ? default : Deserialize<T>(bytes);
     }
 
     //public async Task<T> GetOrCreateAsync<T>(
@@ -42,7 +41,11 @@ internal sealed class CacheService : ICacheService
     //    return result;
     //}
 
-    public Task SetAsync<T>(string key, T value, TimeSpan? expiration = null, CancellationToken cancellationToken = default)
+    public Task SetAsync<T>(
+        string key,
+        T value,
+        TimeSpan? expiration = null,
+        CancellationToken cancellationToken = default)
     {
         byte[] bytes = Serialize(value);
 
@@ -52,9 +55,9 @@ internal sealed class CacheService : ICacheService
     public Task RemoveAsync(string key, CancellationToken cancellationToken = default) =>
         _cache.RemoveAsync(key, cancellationToken);
 
-    private static T? Deserialize<T>(byte[] bytes)
+    private static T Deserialize<T>(byte[] bytes)
     {
-        return JsonSerializer.Deserialize<T>(bytes);
+        return JsonSerializer.Deserialize<T>(bytes)!;
     }
 
     private static byte[] Serialize<T>(T value)

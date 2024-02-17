@@ -15,7 +15,7 @@ public static class UserEndpoint
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("api/users", async (
-            CreateUserRequest request, 
+            CreateUserRequest request,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
@@ -34,7 +34,7 @@ public static class UserEndpoint
             {
                 Result result = await sender.Send(new StartFollowingCommand(userId, followedId));
 
-                return result.IsSuccess ? Results.NoContent() : result.ToProblemDetails();
+                return result.Match(Results.NoContent, CustomResults.Problem);
             });
 
         app.MapGet("api/users/{userId}", async (Guid userId, ISender sender) =>
@@ -43,7 +43,7 @@ public static class UserEndpoint
 
             Result<UserResponse> result = await sender.Send(query);
 
-            return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
+            return result.Match(Results.Ok, CustomResults.Problem);
         });
 
         app.MapGet("api/users/{userId}/follower-stats", async (Guid userId, ISender sender) =>
@@ -52,7 +52,7 @@ public static class UserEndpoint
 
             Result<FollowerStatsResponse> result = await sender.Send(query);
 
-            return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
+            return result.Match(Results.Ok, CustomResults.Problem);
         });
     }
 }

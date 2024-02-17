@@ -21,7 +21,7 @@ public sealed class User : Entity
 
     public Name Name { get; private set; }
 
-    public bool HasPublicProfile { get; private set; }
+    public bool HasPublicProfile { get; set; }
 
     public static User Create(Email email, Name name, bool hasPublicProfile)
     {
