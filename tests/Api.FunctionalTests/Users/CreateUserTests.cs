@@ -53,4 +53,23 @@ public class CreateUserTests : BaseFunctionalTest
             .Should()
             .Contain("", UserErrorCodes.CreateUser.InvalidEmail));
     }
+
+    [Fact]
+    public async Task Should_ReturnBadRequest_WhenNameIsMissing()
+    {
+        // Arrange
+        var request = new CreateUserRequest("test@test.com", "", true);
+
+        // Act
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        CustomProblemDetails problemDetails = await response.GetProblemDetails();
+
+        problemDetails.Errors.Select(e => e.Code
+            .Should()
+            .Contain("", UserErrorCodes.CreateUser.MissingName));
+    }
 }
