@@ -89,4 +89,19 @@ public class CreateUserTests : BaseFunctionalTest
 
         userId.Should().NotBeEmpty();
     }
+
+    [Fact]
+    public async Task Should_ReturnConflict_WhenUserExists()
+    {
+        // Arrange
+        var request = new CreateUserRequest("test-conflict@test.com", "name", true);
+
+        await HttpClient.PostAsJsonAsync("api/users", request);
+
+        // Act
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Conflict);
+    }
 }
