@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using System.Net.Http.Json;
 using Api.FunctionalTests.Abstractions;
+using Application.Users;
+using Application.Users.Create;
 using FluentAssertions;
 
 namespace Api.FunctionalTests.Users;
@@ -22,5 +25,27 @@ public class GetUserTests : BaseFunctionalTest
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task Should_ReturnOk_And_User_WhenUserDoesExist()
+    {
+        // Arrange
+        Guid userId = await CreateUserAsync();
+
+        // Act
+        UserResponse? user = await HttpClient.GetFromJsonAsync<UserResponse>($"api/users/{userId}");
+
+        // Assert
+        user.Should().NotBeNull();
+    }
+
+    private async Task<Guid> CreateUserAsync()
+    {
+        var request = new CreateUserRequest("test@test.com", "name", true);
+
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+
+        return await response.Content.ReadFromJsonAsync<Guid>();
     }
 }
