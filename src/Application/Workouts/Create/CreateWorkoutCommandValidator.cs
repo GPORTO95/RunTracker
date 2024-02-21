@@ -7,10 +7,10 @@ internal sealed class CreateWorkoutCommandValidator : AbstractValidator<CreateWo
     public CreateWorkoutCommandValidator()
     {
         RuleFor(c => c.UserId)
-            .NotEmpty().WithErrorCode(WorkoutErrorCodes.Create.MissingUserId);
+            .NotEmpty().WithErrorCode(WorkoutErrorCodes.CreateWorkout.MissingUserId);
 
         RuleFor(c => c.Name)
-            .NotEmpty().WithErrorCode(WorkoutErrorCodes.Create.MissingName)
-            .MaximumLength(100).WithErrorCode(WorkoutErrorCodes.Create.NameTooLong);
+            .NotEmpty().WithErrorCode(WorkoutErrorCodes.CreateWorkout.MissingName)
+            .MaximumLength(100).WithErrorCode(WorkoutErrorCodes.CreateWorkout.NameTooLong);
     }
 }
