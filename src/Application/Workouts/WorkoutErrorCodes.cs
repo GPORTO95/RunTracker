@@ -13,4 +13,11 @@ public static class WorkoutErrorCodes
     {
         public const string MissingWorkoutId = nameof(MissingWorkoutId);
     }
+
+    public static class AddExercises 
+    {
+        public const string MissingExercises = nameof(MissingExercises);
+        public const string InvalidExerciseType = nameof(InvalidExerciseType);
+        public const string InvalidTargetType = nameof(InvalidTargetType);
+    }
 }
