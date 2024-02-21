@@ -15,6 +15,10 @@ internal sealed class ApplicationReadDbContext : DbContext, IUnitOfWork
 
     public DbSet<FollowerReadModel> Followers { get; set; }
 
+    public DbSet<WorkoutReadModel> Workouts { get; set; }
+
+    public DbSet<ExerciseReadModel> Exercises { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
