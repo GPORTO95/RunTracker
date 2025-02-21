@@ -32,7 +32,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<RequestLogContextMiddleware>();
+//app.UseMiddleware<RequestLogContextMiddleware>();
 
 app.UseSerilogRequestLogging();
 
