@@ -1,8 +1,8 @@
-﻿using Infrastructure.Data.Configurations.Write;
+﻿using Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Outbox;
+namespace Infrastructure.Data.Configurations.Write;
 
 internal sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {

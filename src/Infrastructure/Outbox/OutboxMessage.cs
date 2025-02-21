@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data.Configurations.Write;
+﻿namespace Infrastructure.Outbox;
 
 public sealed record OutboxMessage(
     Guid Id,

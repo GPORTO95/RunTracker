@@ -6,12 +6,14 @@ using Domain.Users;
 using Domain.Workouts;
 using Infrastructure.Caching;
 using Infrastructure.Data;
+using Infrastructure.Health;
 using Infrastructure.Notifications;
 using Infrastructure.Outbox;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SharedKernel;
 
 namespace Infrastructure;
@@ -50,11 +52,21 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IFollowerRepository, FollowerRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
+        services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 
         services.AddTransient<INotificationService, NotificationService>();
 
-        services.AddDistributedMemoryCache();
+        //services.AddDistributedMemoryCache();
+        string redisConnectionString = configuration.GetConnectionString("Cache")!;
+        services.AddStackExchangeRedisCache(options =>
+            options.Configuration = redisConnectionString);
 
         services.AddSingleton<ICacheService, CacheService>();
+
+        services.AddHealthChecks()
+            //.AddCheck<DatabaseHealthCheck>("custom-sql", HealthStatus.Unhealthy) não usar
+            .AddRedis(redisConnectionString)
+            .AddSqlServer(connectionString)
+            .AddDbContextCheck<ApplicationWriteDbContext>();
     }
 }

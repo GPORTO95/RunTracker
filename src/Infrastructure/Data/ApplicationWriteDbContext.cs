@@ -18,6 +18,7 @@ public sealed class ApplicationWriteDbContext : DbContext, IUnitOfWork
     public DbSet<Follower> Followers { get; set; }
 
     public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<Workout> Workouts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

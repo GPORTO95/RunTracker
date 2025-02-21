@@ -1,5 +1,7 @@
 using Application;
+using HealthChecks.UI.Client;
 using Infrastructure;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Web.Api.Endpoints;
 using Web.Api.Extensions;
@@ -31,6 +33,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 //app.UseMiddleware<RequestLogContextMiddleware>();
 
