@@ -3,6 +3,7 @@ using Application.Abstractions.Data;
 using Application.Abstractions.Notifications;
 using Domain.Followers;
 using Domain.Users;
+using Domain.Workouts;
 using Infrastructure.Caching;
 using Infrastructure.Data;
 using Infrastructure.Notifications;
@@ -48,6 +49,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IFollowerRepository, FollowerRepository>();
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
         services.AddTransient<INotificationService, NotificationService>();
 

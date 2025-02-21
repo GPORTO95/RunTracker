@@ -34,12 +34,9 @@ internal sealed class AddExercisesCommandHandler : ICommandHandler<AddExercisesC
             return Result.Failure(ValidationError.FromResults(results));
         }
 
-        foreach (Exercise exercise in workout.Exercises)
-        {
-            _exerciseRepository.Insert(exercise);
-        }
+        _exerciseRepository.InsertRange(workout.Exercises);
 
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

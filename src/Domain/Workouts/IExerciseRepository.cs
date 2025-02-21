@@ -2,5 +2,5 @@
 
 public interface IExerciseRepository
 {
-    void Insert(Exercise exercise);
+    void InsertRange(IEnumerable<Exercise> exercises);
 }

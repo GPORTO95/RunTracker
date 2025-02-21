@@ -4,7 +4,7 @@ namespace Domain.Workouts;
 
 public sealed class Workout : Entity
 {
-    private readonly List<Exercise> _exercises = new();
+    private readonly List<Exercise> _exercises = [];
 
     private Workout()
     {
@@ -14,7 +14,7 @@ public sealed class Workout : Entity
 
     public string Name { get; private set; }
 
-    public List<Exercise> Exercises => _exercises;
+    public List<Exercise> Exercises => _exercises.ToList();
 
     public Result AddExercise(
         ExerciseType exerciseType,
