@@ -2,4 +2,4 @@
 
 namespace Application.Workouts.Create;
 
-public sealed record CreateWorkoutCommand(Guid UserId, string Name) : ICommand<Guid>;
+public sealed record CreateWorkoutRequest(Guid UserId, string Name);

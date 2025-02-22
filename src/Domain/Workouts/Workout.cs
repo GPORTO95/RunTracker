@@ -6,6 +6,13 @@ public sealed class Workout : Entity
 {
     private readonly List<Exercise> _exercises = [];
 
+    public Workout(Guid id, Guid userId, string name)
+        : base(id)
+    {
+        UserId = userId;
+        Name = name;
+    }
+
     private Workout()
     {
     }

@@ -46,6 +46,7 @@ app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 
 app.MapUserEndpoints();
+app.MapWorkoutEndpoints();
 
 app.Run();
 
