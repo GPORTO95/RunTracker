@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Application.Followers.GetFollowersStats;
+﻿using Application.Followers.GetFollowersStats;
 using Application.Followers.GetRecentFollowers;
 using Application.Followers.StartFollowing;
 using Application.Users;
@@ -16,10 +15,10 @@ public static class UserEndpoint
 {
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("api/users", async (
-            CreateUserRequest request,
-            ISender sender,
-            CancellationToken cancellationToken) =>
+        app.MapPost("users", async (
+             CreateUserRequest request,
+             ISender sender,
+             CancellationToken cancellationToken) =>
         {
             var command = new CreateUserCommand(
                 request.Email,
@@ -31,7 +30,7 @@ public static class UserEndpoint
             return result.Match(Results.Ok, CustomResults.Problem);
         });
 
-        app.MapPost("api/users/{userId}/follow/{followedId}",
+        app.MapPost("users/{userId}/follow/{followedId}",
             async (Guid userId, Guid followedId, ISender sender, CancellationToken cancellationToken) =>
             {
                 Result result = await sender.Send(new StartFollowingCommand(userId, followedId), cancellationToken);
@@ -39,7 +38,7 @@ public static class UserEndpoint
                 return result.Match(Results.NoContent, CustomResults.Problem);
             });
 
-        app.MapGet("api/users/{userId}", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
+        app.MapGet("users/{userId}", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
         {
             var query = new GetUserByIdQuery(userId);
 
@@ -48,7 +47,7 @@ public static class UserEndpoint
             return result.Match(Results.Ok, CustomResults.Problem);
         });
 
-        app.MapGet("api/users/{userId}/follower-stats", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
+        app.MapGet("users/{userId}/follower-stats", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
         {
             var query = new GetFollowerStatsQuery(userId);
 
@@ -57,7 +56,7 @@ public static class UserEndpoint
             return result.Match(Results.Ok, CustomResults.Problem);
         });
 
-        app.MapGet("api/users/{userId}/followers/recent", async (
+        app.MapGet("users/{userId}/followers/recent", async (
             Guid userId,
             ISender sender,
             CancellationToken cancellationToken) =>

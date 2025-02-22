@@ -23,7 +23,7 @@ public class CreateUserTests : BaseFunctionalTest
         var request = new CreateUserRequest("", "name", true);
 
         // Act
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -42,7 +42,7 @@ public class CreateUserTests : BaseFunctionalTest
         var request = new CreateUserRequest("test", "name", true);
 
         // Act
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -61,7 +61,7 @@ public class CreateUserTests : BaseFunctionalTest
         var request = new CreateUserRequest("test@test.com", "", true);
 
         // Act
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -80,7 +80,7 @@ public class CreateUserTests : BaseFunctionalTest
         var request = new CreateUserRequest("test@test.com", "name", true);
 
         // Act
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -96,10 +96,10 @@ public class CreateUserTests : BaseFunctionalTest
         // Arrange
         var request = new CreateUserRequest("test-conflict@test.com", "name", true);
 
-        await HttpClient.PostAsJsonAsync("api/users", request);
+        await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Act
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Conflict);

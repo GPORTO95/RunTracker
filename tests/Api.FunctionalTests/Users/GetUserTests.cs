@@ -21,7 +21,7 @@ public class GetUserTests : BaseFunctionalTest
         var userId = Guid.NewGuid();
 
         // Act
-        HttpResponseMessage response = await HttpClient.GetAsync($"api/users/{userId}");
+        HttpResponseMessage response = await HttpClient.GetAsync($"api/v1/users/{userId}");
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -34,7 +34,7 @@ public class GetUserTests : BaseFunctionalTest
         Guid userId = await CreateUserAsync();
 
         // Act
-        UserResponse? user = await HttpClient.GetFromJsonAsync<UserResponse>($"api/users/{userId}");
+        UserResponse? user = await HttpClient.GetFromJsonAsync<UserResponse>($"api/v1/users/{userId}");
 
         // Assert
         user.Should().NotBeNull();
@@ -44,7 +44,7 @@ public class GetUserTests : BaseFunctionalTest
     {
         var request = new CreateUserRequest("test@test.com", "name", true);
 
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/users", request);
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("api/v1/users", request);
 
         return await response.Content.ReadFromJsonAsync<Guid>();
     }
