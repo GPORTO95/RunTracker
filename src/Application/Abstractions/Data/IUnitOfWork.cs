@@ -1,6 +1,10 @@
-﻿namespace Application.Abstractions.Data;
+﻿using System.Data;
+
+namespace Application.Abstractions.Data;
 
 public interface IUnitOfWork
 {
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    Task<IDbTransaction> BeginTransactionAsync();
 }

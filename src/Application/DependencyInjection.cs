@@ -13,8 +13,10 @@ public static class DependencyInjection
         {
             config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
+            config.AddOpenBehavior(typeof(ExceptionHandlingPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+            config.AddOpenBehavior(typeof(TransactionalPipelineBehavior<,>));
             // comentado até resolver problema na deserialização
             //config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
         });

@@ -1,6 +1,5 @@
-﻿using Application.Abstractions.Data;
+﻿using System.Data;
 using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace Infrastructure.Data;
 

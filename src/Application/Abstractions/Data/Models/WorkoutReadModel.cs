@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Data.Models;
+﻿namespace Application.Abstractions.Data.Models;
 
-internal sealed class WorkoutReadModel
+public sealed class WorkoutReadModel
 {
     public Guid Id { get; set; }
 

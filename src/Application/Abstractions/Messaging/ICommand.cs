@@ -3,14 +3,12 @@ using SharedKernel;
 
 namespace Application.Abstractions.Messaging;
 
-public interface ICommand : IRequest<Result>, IBaseCommand
-{
-}
+public interface ITransactionalCommand : ICommand;
 
-public interface ICommand<TResponse> : IRequest<Result<TResponse>>, IBaseCommand
-{
-}
+public interface ITransactionalCommand<TResponse> : ICommand<TResponse>, ITransactionalCommand;
 
-public interface IBaseCommand
-{
-}
+public interface ICommand : IRequest<Result>, IBaseCommand;
+
+public interface ICommand<TResponse> : IRequest<Result<TResponse>>, IBaseCommand;
+
+public interface IBaseCommand;

@@ -1,16 +1,11 @@
 ﻿using Application.Abstractions.Data;
-using Infrastructure.Data.Models;
+using Application.Abstractions.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
-internal sealed class ApplicationReadDbContext : DbContext, IUnitOfWork
+internal sealed class ApplicationReadDbContext(DbContextOptions<ApplicationReadDbContext> options) : DbContext(options), IApplicationReadDbContext
 {
-    public ApplicationReadDbContext(DbContextOptions<ApplicationReadDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<UserReadModel> Users { get; set; }
 
     public DbSet<FollowerReadModel> Followers { get; set; }
@@ -23,9 +18,9 @@ internal sealed class ApplicationReadDbContext : DbContext, IUnitOfWork
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(ApplicationReadDbContext).Assembly,
-            WriteConfigurationsFilter);
+            ReadConfigurationsFilter);
     }
 
-    private static bool WriteConfigurationsFilter(Type type) =>
+    private static bool ReadConfigurationsFilter(Type type) =>
         type.FullName?.Contains("Configurations.Read") ?? false;
 }

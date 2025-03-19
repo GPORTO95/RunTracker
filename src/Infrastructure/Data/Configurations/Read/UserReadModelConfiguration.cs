@@ -1,6 +1,6 @@
-﻿using Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Application.Abstractions.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations.Read;
 

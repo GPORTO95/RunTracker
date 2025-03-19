@@ -1,8 +1,8 @@
 ﻿using Domain.Workouts;
 
-namespace Infrastructure.Data.Models;
+namespace Application.Abstractions.Data.Models;
 
-internal sealed class ExerciseReadModel
+public sealed class ExerciseReadModel
 {
     public Guid Id { get; set; }
 

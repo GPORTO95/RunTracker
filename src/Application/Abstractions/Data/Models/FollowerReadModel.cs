@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Data.Models;
+﻿namespace Application.Abstractions.Data.Models;
 
-internal sealed class FollowerReadModel
+public sealed class FollowerReadModel
 {
     public Guid UserId { get; set; }
 

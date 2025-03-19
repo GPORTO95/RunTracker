@@ -42,7 +42,7 @@ public static class DependencyInjection
                 .UseSqlServer(connectionString)
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessageInterceptor>()));
 
-        services.AddDbContext<ApplicationReadDbContext>(
+        services.AddDbContext<IApplicationReadDbContext, ApplicationReadDbContext>(
             options => options
             .UseSqlServer(connectionString)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
