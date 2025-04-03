@@ -1,11 +1,13 @@
 ﻿using Application.Abstractions.Caching;
 using Application.Abstractions.Data;
+using Application.Abstractions.Events;
 using Application.Abstractions.Notifications;
 using Domain.Followers;
 using Domain.Users;
 using Domain.Workouts;
 using Infrastructure.Caching;
 using Infrastructure.Data;
+using Infrastructure.Events;
 using Infrastructure.Health;
 using Infrastructure.Notifications;
 using Infrastructure.Outbox;
@@ -68,5 +70,9 @@ public static class DependencyInjection
             .AddRedis(redisConnectionString)
             .AddSqlServer(connectionString)
             .AddDbContextCheck<ApplicationWriteDbContext>();
+
+        services.AddSingleton<InMemoryMessageQueue>();
+        services.AddSingleton<IEventBus, EventBus>();
+        services.AddHostedService<IntegrationEventProcessorJob>();
     }
 }
