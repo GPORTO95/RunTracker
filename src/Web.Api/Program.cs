@@ -1,3 +1,4 @@
+using System.Reflection;
 using Application;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
@@ -7,6 +8,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Web.Api.Endpoints;
+using Web.Api.Endpoints.Users;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 using Web.Api.OpenApi;
@@ -39,6 +41,8 @@ builder.Services.AddApiVersioning(options =>
 
 builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
+builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
+
 WebApplication app = builder.Build();
 
 ApiVersionSet apiVersionSet = app.NewApiVersionSet()
@@ -52,8 +56,9 @@ RouteGroupBuilder versionedGroup = app
     .MapGroup("api/v{apiVersion:apiVersion}")
     .WithApiVersionSet(apiVersionSet);
 
-versionedGroup.MapUserEndpoints();
 versionedGroup.MapWorkoutEndpoints();
+
+app.MapEndpoints(versionedGroup);
 
 if (app.Environment.IsDevelopment())
 {
