@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Behaviors;
-using Domain.Followers;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,12 +19,6 @@ public static class DependencyInjection
             // comentado até resolver problema na deserialização
             //config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
         });
-
-        services.AddValidatorsFromAssembly(
-            typeof(DependencyInjection).Assembly,
-            includeInternalTypes: true);
-
-        services.AddScoped<IFollowerService, FollowerService>();
 
         return services;
     }

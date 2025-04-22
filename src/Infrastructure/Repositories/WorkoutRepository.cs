@@ -1,10 +1,10 @@
-﻿using Domain.Workouts;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Modules.Training.Domain.Workouts;
 
 namespace Infrastructure.Repositories;
 
-internal sealed class WorkoutRepository(ApplicationWriteDbContext context) : IWorkoutRepository
+internal sealed class WorkoutRepository(ApplicationDbContext context) : IWorkoutRepository
 {
     public Task<Workout?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {

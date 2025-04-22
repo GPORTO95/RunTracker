@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationWriteDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250221222424_create")]
     partial class create
     {

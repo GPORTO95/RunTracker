@@ -7,11 +7,11 @@ using HealthChecks.UI.Client;
 using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
-using Web.Api.Endpoints;
-using Web.Api.Endpoints.Users;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 using Web.Api.OpenApi;
+using Modules.Training.Application;
+using Modules.Users.Application;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +23,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
+    .AddUsersModule()
+    .AddWorkoutsModule()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
@@ -56,8 +58,6 @@ RouteGroupBuilder versionedGroup = app
     .MapGroup("api/v{apiVersion:apiVersion}")
     .WithApiVersionSet(apiVersionSet);
 
-versionedGroup.MapWorkoutEndpoints();
-
 app.MapEndpoints(versionedGroup);
 
 if (app.Environment.IsDevelopment())
@@ -87,6 +87,7 @@ app.MapHealthChecks("health", new HealthCheckOptions
 });
 
 //app.UseMiddleware<RequestLogContextMiddleware>();
+app.UseRequestContextLogging();
 
 app.UseSerilogRequestLogging();
 

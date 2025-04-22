@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Api.FunctionalTests.Abstractions;
-using Application.Users;
-using Application.Users.Create;
 using FluentAssertions;
+using Modules.Users.Application.Users.Create;
+using Modules.Users.Application.Users.GetById;
 
 namespace Api.FunctionalTests.Users;
 

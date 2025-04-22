@@ -1,5 +1,5 @@
-﻿using Application.Followers.GetRecentFollowers;
-using MediatR;
+﻿using MediatR;
+using Modules.Users.Application.Followers.GetRecentFollowers;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;

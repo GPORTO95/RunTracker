@@ -1,14 +1,14 @@
-﻿using Domain.Followers;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Modules.Users.Domain.Followers;
 
 namespace Infrastructure.Repositories;
 
 internal sealed class FollowerRepository : IFollowerRepository
 {
-    private readonly ApplicationWriteDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
 
-    public FollowerRepository(ApplicationWriteDbContext dbContext)
+    public FollowerRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -1,21 +1,20 @@
 ﻿using Application.Abstractions.Caching;
 using Application.Abstractions.Data;
-using Application.Abstractions.Events;
+using Application.Abstractions.Messaging;
 using Application.Abstractions.Notifications;
-using Domain.Followers;
-using Domain.Users;
-using Domain.Workouts;
 using Infrastructure.Caching;
 using Infrastructure.Data;
 using Infrastructure.Events;
-using Infrastructure.Health;
 using Infrastructure.Notifications;
 using Infrastructure.Outbox;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Modules.Training.Domain.Activies;
+using Modules.Training.Domain.Workouts;
+using Modules.Users.Domain.Followers;
+using Modules.Users.Domain.Users;
 using SharedKernel;
 
 namespace Infrastructure;
@@ -34,27 +33,29 @@ public static class DependencyInjection
         string? connectionString = configuration.GetConnectionString("Database");
         Ensure.NotNullOrEmpty(connectionString);
 
-        services.AddTransient(_ => new DbConnectionFactory(connectionString));
+        services.AddSingleton<IDBConnectionFactory>(_ =>
+            new DbConnectionFactory(connectionString));
 
         services.AddSingleton<PublishDomainEventsInterceptor>();
         services.AddSingleton<InsertOutboxMessageInterceptor>();
 
-        services.AddDbContext<ApplicationWriteDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             (sp, options) => options
                 .UseSqlServer(connectionString)
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessageInterceptor>()));
 
-        services.AddDbContext<IApplicationReadDbContext, ApplicationReadDbContext>(
-            options => options
-            .UseSqlServer(connectionString)
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+        //services.AddDbContext<IApplicationReadDbContext, ApplicationReadDbContext>(
+        //    options => options
+        //    .UseSqlServer(connectionString)
+        //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationWriteDbContext>());
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IFollowerRepository, FollowerRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+        services.AddScoped<IActivityRepository, ActivityRepository>();
 
         services.AddTransient<INotificationService, NotificationService>();
 
@@ -69,7 +70,7 @@ public static class DependencyInjection
             //.AddCheck<DatabaseHealthCheck>("custom-sql", HealthStatus.Unhealthy) não usar
             .AddRedis(redisConnectionString)
             .AddSqlServer(connectionString)
-            .AddDbContextCheck<ApplicationWriteDbContext>();
+            .AddDbContextCheck<ApplicationDbContext>();
 
         services.AddSingleton<InMemoryMessageQueue>();
         services.AddSingleton<IEventBus, EventBus>();

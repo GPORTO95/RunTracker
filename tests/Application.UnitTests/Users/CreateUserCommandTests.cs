@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions.Data;
-using Application.Users.Create;
-using Domain.Users;
 using FluentAssertions;
+using Modules.Users.Application.Users.Create;
+using Modules.Users.Domain.Users;
 using NSubstitute;
 using SharedKernel;
 

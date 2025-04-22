@@ -1,5 +1,5 @@
-﻿using Application.Followers.StartFollowing;
-using MediatR;
+﻿using MediatR;
+using Modules.Users.Application.Followers.StartFollowing;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;

@@ -23,6 +23,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Application\Application.csproj" />
+		<ProjectReference Include="..\Modules\Training\Modules.Training.Application\Modules.Training.Application.csproj" />
+		<ProjectReference Include="..\Modules\Users\Modules.Users.Application\Modules.Users.Application.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

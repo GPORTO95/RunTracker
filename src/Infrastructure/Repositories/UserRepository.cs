@@ -1,14 +1,14 @@
-﻿using Domain.Users;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Modules.Users.Domain.Users;
 
 namespace Infrastructure.Repositories;
 
 internal sealed class UserRepository : IUserRepository
 {
-    private readonly ApplicationWriteDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
 
-    public UserRepository(ApplicationWriteDbContext dbContext)
+    public UserRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }

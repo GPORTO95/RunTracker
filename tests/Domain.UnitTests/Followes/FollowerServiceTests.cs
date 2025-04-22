@@ -1,6 +1,6 @@
-﻿using Domain.Followers;
-using Domain.Users;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Modules.Users.Domain.Followers;
+using Modules.Users.Domain.Users;
 using NSubstitute;
 using SharedKernel;
 

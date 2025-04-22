@@ -1,8 +1,8 @@
 ﻿using Application.IntegrationTests.Abstractions;
-using Application.Users.Create;
-using Application.Workouts.Create;
-using Domain.Workouts;
 using FluentAssertions;
+using Modules.Training.Application.Workouts.Create;
+using Modules.Training.Domain.Workouts;
+using Modules.Users.Application.Users.Create;
 using SharedKernel;
 
 namespace Application.IntegrationTests.Workouts;

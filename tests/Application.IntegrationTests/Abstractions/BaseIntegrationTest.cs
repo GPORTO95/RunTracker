@@ -13,13 +13,13 @@ public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppF
     {
         _scope = factory.Services.CreateScope();
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
-        DbContext = _scope.ServiceProvider.GetRequiredService<ApplicationWriteDbContext>();
+        DbContext = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         Faker = new Faker();
     }
 
     protected ISender Sender { get; }
 
-    protected ApplicationWriteDbContext DbContext { get; }
+    protected ApplicationDbContext DbContext { get; }
 
     protected Faker Faker { get; }
 

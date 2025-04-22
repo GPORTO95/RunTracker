@@ -1,9 +1,9 @@
-﻿using Domain.Workouts;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
+using Modules.Training.Domain.Workouts;
 
 namespace Infrastructure.Repositories;
 
-internal sealed class ExerciseRepository(ApplicationWriteDbContext context) : IExerciseRepository
+internal sealed class ExerciseRepository(ApplicationDbContext context) : IExerciseRepository
 {
     public void InsertRange(IEnumerable<Exercise> exercises)
     {

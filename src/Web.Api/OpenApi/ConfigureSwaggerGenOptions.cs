@@ -18,18 +18,28 @@ public class ConfigureSwaggerGenOptions : IConfigureNamedOptions<SwaggerGenOptio
     {
         foreach (ApiVersionDescription description in _provider.ApiVersionDescriptions)
         {
-            var openApiInfo = new OpenApiInfo
-            {
-                Title = $"RunTrackr.Api v{description.ApiVersion}",
-                Version = description.ApiVersion.ToString()
-            };
-
-            options.SwaggerDoc(description.GroupName, openApiInfo);
+            options.SwaggerDoc(description.GroupName, CreateVersionInfo(description));
         }
     }
 
     public void Configure(string? name, SwaggerGenOptions options)
     {
         Configure(options);
+    }
+
+    private static OpenApiInfo CreateVersionInfo(ApiVersionDescription apiVersionDescription)
+    {
+        var openApiInfo = new OpenApiInfo
+        {
+            Title = $"RunTrackr.Api v{apiVersionDescription.ApiVersion}",
+            Version = apiVersionDescription.ApiVersion.ToString()
+        };
+
+        if (apiVersionDescription.IsDeprecated)
+        {
+            openApiInfo.Description += " This API version has been deprecated.";
+        }
+
+        return openApiInfo;
     }
 }

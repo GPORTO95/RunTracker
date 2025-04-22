@@ -1,6 +1,4 @@
-﻿
-
-using Application.Abstractions.Caching;
+﻿using Application.Abstractions.Caching;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using SharedKernel;

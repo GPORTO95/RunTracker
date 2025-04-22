@@ -1,8 +1,8 @@
 ﻿using Application.Abstractions.Data;
-using Application.Followers.StartFollowing;
-using Domain.Followers;
-using Domain.Users;
 using FluentAssertions;
+using Modules.Users.Application.Followers.StartFollowing;
+using Modules.Users.Domain.Followers;
+using Modules.Users.Domain.Users;
 using NSubstitute;
 using SharedKernel;
 

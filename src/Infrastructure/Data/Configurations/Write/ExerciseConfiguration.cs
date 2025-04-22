@@ -1,6 +1,6 @@
-﻿using Domain.Workouts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Modules.Training.Domain.Workouts;
 
 namespace Infrastructure.Data.Configurations.Write;
 

@@ -1,5 +1,5 @@
-﻿using Domain.Users;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Modules.Users.Domain.Users;
 
 namespace Domain.UnitTests.Users;
 

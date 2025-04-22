@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Events;
+﻿using Application.Abstractions.Messaging;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

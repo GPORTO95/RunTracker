@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using Application.Abstractions.Data;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -24,20 +25,22 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     {
         builder.ConfigureTestServices(services =>
         {
-            services.RemoveAll(typeof(DbContextOptions<ApplicationWriteDbContext>));
+            services.RemoveAll(typeof(IDBConnectionFactory));
+            services.AddSingleton<IDBConnectionFactory>(_ =>
+                new DbConnectionFactory(_msSqlContainer.GetConnectionString()));
 
-            services.AddDbContext<ApplicationWriteDbContext>(options =>
+            services.RemoveAll(typeof(DbContextOptions<ApplicationDbContext>));
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options
                     .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            services.RemoveAll(typeof(DbContextOptions<ApplicationReadDbContext>));
+            //services.RemoveAll(typeof(DbContextOptions<ApplicationReadDbContext>));
 
-            services.AddDbContext<ApplicationReadDbContext>(options =>
-                options
-                    .UseSqlServer(_msSqlContainer.GetConnectionString()));
+            //services.AddDbContext<ApplicationReadDbContext>(options =>
+            //    options
+            //        .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
             services.RemoveAll(typeof(RedisCacheOptions));
-
             services.AddStackExchangeRedisCache(redisCacheOptions =>
                 redisCacheOptions.Configuration = _redisContainer.GetConnectionString());
         });

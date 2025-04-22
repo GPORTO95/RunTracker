@@ -1,5 +1,5 @@
 ﻿using System.Threading.Channels;
-using Application.Abstractions.Events;
+using Application.Abstractions.Messaging;
 
 namespace Infrastructure.Events;
 

@@ -1,6 +1,5 @@
-﻿using Application.Users;
-using Application.Users.GetById;
-using MediatR;
+﻿using MediatR;
+using Modules.Users.Application.Users.GetById;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;

@@ -11,7 +11,7 @@ internal sealed class DatabaseHealthCheck(DbConnectionFactory dbConnectionFactor
     {
         try
         {
-            using IDbConnection connection = dbConnectionFactory.CreateOpenConnection();
+            using IDbConnection connection = dbConnectionFactory.GetOpenConnection();
 
             await connection.ExecuteScalarAsync("SELECT 1");
 

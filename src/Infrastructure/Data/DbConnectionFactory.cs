@@ -1,20 +1,14 @@
 ﻿using System.Data;
+using Application.Abstractions.Data;
 using Microsoft.Data.SqlClient;
 
 namespace Infrastructure.Data;
 
-internal sealed class DbConnectionFactory
+internal sealed class DbConnectionFactory(string connectionString) : IDBConnectionFactory
 {
-    private readonly string _connectionString;
-
-    public DbConnectionFactory(string connectionString)
+    public IDbConnection GetOpenConnection()
     {
-        _connectionString = connectionString;
-    }
-
-    public IDbConnection CreateOpenConnection()
-    {
-        var connection = new SqlConnection(_connectionString);
+        var connection = new SqlConnection(connectionString);
         connection.Open();
 
         return connection;

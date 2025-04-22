@@ -1,7 +1,7 @@
-﻿using Domain.Followers;
-using Domain.Users;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Modules.Users.Domain.Followers;
+using Modules.Users.Domain.Users;
 
 namespace Infrastructure.Data.Configurations.Write;
 

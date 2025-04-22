@@ -1,5 +1,5 @@
-﻿using Application.Users.Create;
-using MediatR;
+﻿using MediatR;
+using Modules.Users.Application.Users.Create;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
