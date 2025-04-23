@@ -2,7 +2,7 @@
 
 public interface IUserRepository
 {
-    Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task<bool> IsEmailUniqueAsync(Email email);
 

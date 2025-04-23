@@ -5,7 +5,7 @@ using SharedKernel;
 
 namespace Infrastructure.Outbox;
 
-internal sealed class InsertOutboxMessageInterceptor : SaveChangesInterceptor
+public sealed class InsertOutboxMessageInterceptor : SaveChangesInterceptor
 {
     private static readonly JsonSerializerSettings SerializerSettings = new()
     {

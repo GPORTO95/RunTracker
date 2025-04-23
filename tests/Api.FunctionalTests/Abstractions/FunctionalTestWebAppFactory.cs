@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.Abstractions.Data;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Testcontainers.Redis;
+using Modules.Users.Infrastructure.Database;
+using Modules.Training.Infrastructure.Database;
 
 namespace Api.FunctionalTests.Abstractions;
 
@@ -34,11 +36,15 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyn
                 options
                     .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            //services.RemoveAll(typeof(DbContextOptions<ApplicationReadDbContext>));
+            services.RemoveAll(typeof(DbContextOptions<UsersDbContext>));
+            services.AddDbContext<UsersDbContext>(options =>
+                options
+                    .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            //services.AddDbContext<ApplicationReadDbContext>(options =>
-            //    options
-            //        .UseSqlServer(_msSqlContainer.GetConnectionString()));
+            services.RemoveAll(typeof(DbContextOptions<TrainingDbContext>));
+            services.AddDbContext<TrainingDbContext>(options =>
+                options
+                    .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
             services.RemoveAll(typeof(RedisCacheOptions));
             services.AddStackExchangeRedisCache(redisCacheOptions =>

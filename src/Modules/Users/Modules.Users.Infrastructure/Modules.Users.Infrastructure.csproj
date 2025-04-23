@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Application.csproj" />
-    <ProjectReference Include="..\..\Users\Modules.Users.Api\Modules.Users.Api.csproj" />
-    <ProjectReference Include="..\Modules.Training.Domain\Modules.Training.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules.Users.Api\Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\Modules.Users.Application\Modules.Users.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -28,6 +28,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Modules\Training\Modules.Training.Infrastructure\Modules.Training.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\src\Modules\Users\Modules.Users.Infrastructure\Modules.Users.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\src\Web.Api\Web.Api.csproj" />
 	</ItemGroup>
 

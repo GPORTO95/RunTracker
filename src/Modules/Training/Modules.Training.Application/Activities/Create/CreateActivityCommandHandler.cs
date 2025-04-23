@@ -1,14 +1,15 @@
 ﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
-using Modules.Training.Domain.Activies;
+using Modules.Training.Domain.Activities;
+using Modules.Training.Domain.Users;
 using Modules.Training.Domain.Workouts;
-using Modules.Users.Domain.Users;
+using Modules.Users.Api;
 using SharedKernel;
 
 namespace Modules.Training.Application.Activities.Create;
 
 internal sealed class CreateActivityCommandHandler(
-    IUserRepository userRepository,
+    IUsersApi usersApi,
     IWorkoutRepository workoutRepository,
     IActivityRepository activityRepository,
     IUnitOfWork unitOfWork)
@@ -16,7 +17,7 @@ internal sealed class CreateActivityCommandHandler(
 {
     public async Task<Result<Guid>> Handle(CreateActivityCommand request, CancellationToken cancellationToken)
     {
-        User? user = await userRepository.GetByIdAsync(request.UserId, cancellationToken);
+        UserResponse? user = await usersApi.GetAsync(request.UserId, cancellationToken);
         if (user is null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound(request.UserId));

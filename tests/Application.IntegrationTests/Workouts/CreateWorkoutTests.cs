@@ -42,7 +42,8 @@ public class CreateWorkoutTests : BaseIntegrationTest
         Result<Guid> result = await Sender.Send(command);
 
         // Assert
-        Workout? workout = await DbContext.Workouts.FindAsync(result.Value);
+        Workout? workout = await TrainingDbContext.Workouts.FindAsync(result.Value);
+
         workout.Should().NotBeNull();
     }
 }

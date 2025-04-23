@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Modules.Users.Application.Users.Create;
 using Modules.Users.Domain.Users;
+using SharedKernel;
 
 namespace Application.IntegrationTests.Users;
 
@@ -19,7 +20,7 @@ public class CreateUserTests : BaseIntegrationTest
         var command = new CreateUserCommand(Faker.Internet.Email(), Faker.Internet.UserName(), true);
 
         // Act
-        var result = await Sender.Send(command);
+        Result<Guid> result = await Sender.Send(command);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -32,10 +33,11 @@ public class CreateUserTests : BaseIntegrationTest
         var command = new CreateUserCommand(Faker.Internet.Email(), Faker.Internet.UserName(), true);
 
         // Act
-        var result = await Sender.Send(command);
+        Result<Guid> result = await Sender.Send(command);
 
         // Assert
-        User? user = await DbContext.Users.FindAsync(result.Value);
+        User? user = await UsersDbContext.Users.FindAsync(result.Value);
+
         user.Should().NotBeNull();
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Modules.Training.Infrastructure.Database;
+using Modules.Users.Infrastructure.Database;
 using Testcontainers.MsSql;
 using Testcontainers.Redis;
 
@@ -34,11 +36,15 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 options
                     .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            //services.RemoveAll(typeof(DbContextOptions<ApplicationReadDbContext>));
+            services.RemoveAll(typeof(DbContextOptions<UsersDbContext>));
+            services.AddDbContext<UsersDbContext>(options =>
+                options
+                    .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
-            //services.AddDbContext<ApplicationReadDbContext>(options =>
-            //    options
-            //        .UseSqlServer(_msSqlContainer.GetConnectionString()));
+            services.RemoveAll(typeof(DbContextOptions<TrainingDbContext>));
+            services.AddDbContext<TrainingDbContext>(options =>
+                options
+                    .UseSqlServer(_msSqlContainer.GetConnectionString()));
 
             services.RemoveAll(typeof(RedisCacheOptions));
             services.AddStackExchangeRedisCache(redisCacheOptions =>

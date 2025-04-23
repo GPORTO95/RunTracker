@@ -30,9 +30,15 @@ public class CreateUserTests : BaseFunctionalTest
 
         CustomProblemDetails problemDetails = await response.GetProblemDetails();
 
-        problemDetails.Errors.Select(e => e.Code
+        //problemDetails.Errors.Select(e => e.Code
+        //    .Should()
+        //    .Contain("", UserErrorCodes.CreateUser.MissingEmail, UserErrorCodes.CreateUser.InvalidEmail));
+        problemDetails.Errors.Select(e => e.Code)
             .Should()
-            .Contain("", UserErrorCodes.CreateUser.MissingEmail, UserErrorCodes.CreateUser.InvalidEmail));
+            .Contain([
+                UserErrorCodes.CreateUser.MissingEmail,
+                UserErrorCodes.CreateUser.InvalidEmail
+            ]);
     }
 
     [Fact]
@@ -49,9 +55,9 @@ public class CreateUserTests : BaseFunctionalTest
 
         CustomProblemDetails problemDetails = await response.GetProblemDetails();
 
-        problemDetails.Errors.Select(e => e.Code
+        problemDetails.Errors.Select(e => e.Code)
             .Should()
-            .Contain("", UserErrorCodes.CreateUser.InvalidEmail));
+            .Contain([UserErrorCodes.CreateUser.InvalidEmail]);
     }
 
     [Fact]

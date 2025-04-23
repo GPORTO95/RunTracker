@@ -34,7 +34,11 @@ internal sealed class AddExercisesCommandHandler(
             return Result.Failure(ValidationError.FromResults(results));
         }
 
-        exerciseRepository.InsertRange(workout.Exercises);
+        //exerciseRepository.InsertRange(workout.Exercises);
+        foreach (Exercise exercise in workout.Exercises)
+        {
+            exerciseRepository.Insert(exercise);
+        }
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

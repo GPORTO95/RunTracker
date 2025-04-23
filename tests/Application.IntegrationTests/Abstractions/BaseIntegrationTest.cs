@@ -2,6 +2,8 @@
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Training.Infrastructure.Database;
+using Modules.Users.Infrastructure.Database;
 
 namespace Application.IntegrationTests.Abstractions;
 
@@ -13,13 +15,16 @@ public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppF
     {
         _scope = factory.Services.CreateScope();
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
-        DbContext = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        UsersDbContext = _scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+        TrainingDbContext = _scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
         Faker = new Faker();
     }
 
     protected ISender Sender { get; }
 
-    protected ApplicationDbContext DbContext { get; }
+    protected UsersDbContext UsersDbContext { get; }
+
+    protected TrainingDbContext TrainingDbContext { get; }
 
     protected Faker Faker { get; }
 

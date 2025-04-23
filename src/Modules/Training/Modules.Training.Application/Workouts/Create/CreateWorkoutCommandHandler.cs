@@ -1,19 +1,20 @@
 ﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
+using Modules.Training.Domain.Users;
 using Modules.Training.Domain.Workouts;
-using Modules.Users.Domain.Users;
+using Modules.Users.Api;
 using SharedKernel;
 
 namespace Modules.Training.Application.Workouts.Create;
 
 internal sealed class CreateWorkoutCommandHandler(
-    IUserRepository userRepository,
+    IUsersApi usersApi,
     IWorkoutRepository workoutRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<CreateWorkoutCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
     {
-        User? user = await userRepository.GetByIdAsync(request.UserId, cancellationToken);
+        UserResponse? user = await usersApi.GetAsync(request.UserId, cancellationToken);
 
         if (user is null)
         {
