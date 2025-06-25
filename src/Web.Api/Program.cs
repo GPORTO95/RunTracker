@@ -12,6 +12,7 @@ using Web.Api.Infrastructure;
 using Web.Api.OpenApi;
 using Modules.Training.Application;
 using Modules.Users.Application;
+using Hangfire;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,8 @@ RouteGroupBuilder versionedGroup = app
 
 app.MapEndpoints(versionedGroup);
 
+app.UseBackgroundJobs();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -74,6 +77,12 @@ if (app.Environment.IsDevelopment())
 
             options.SwaggerEndpoint(url, name);
         }
+    });
+
+    app.UseHangfireDashboard(options: new DashboardOptions
+    {
+        Authorization = [],
+        DarkModeEnabled = true
     });
 
     app.ApplyMigrations();
