@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Modules.Users.Application.Abstractions.Data;
@@ -16,7 +17,10 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema(Schema.Users);
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsersDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
     }
 
     public async Task<IDbTransaction> BeginTransactionAsync()

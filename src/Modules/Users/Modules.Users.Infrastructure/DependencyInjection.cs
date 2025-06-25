@@ -1,6 +1,6 @@
-﻿using Infrastructure.Data;
-using Infrastructure.Outbox;
+﻿using Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -10,6 +10,7 @@ using Modules.Users.Domain.Followers;
 using Modules.Users.Domain.Users;
 using Modules.Users.Infrastructure.Api;
 using Modules.Users.Infrastructure.Database;
+using Modules.Users.Infrastructure.Outbox;
 using Modules.Users.Infrastructure.Repositories;
 using SharedKernel;
 
@@ -26,7 +27,7 @@ public static class DependencyInjection
 
         services.AddDbContext<UsersDbContext>(
             (sp, options) => options
-                .UseSqlServer(connectionString)
+                .UseSqlServer(connectionString, sql => sql.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schema.Users))
                 .AddInterceptors(sp.GetRequiredService<InsertOutboxMessageInterceptor>()));
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
@@ -35,6 +36,8 @@ public static class DependencyInjection
         services.AddScoped<IFollowerRepository, FollowerRepository>();
 
         services.AddScoped<IUsersApi, UsersApi>();
+
+        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
 
         return services;
     }

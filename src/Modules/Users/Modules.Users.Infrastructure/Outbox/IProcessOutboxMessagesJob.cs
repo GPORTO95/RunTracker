@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Outbox;
+﻿namespace Modules.Users.Infrastructure.Outbox;
 
 public interface IProcessOutboxMessagesJob
 {

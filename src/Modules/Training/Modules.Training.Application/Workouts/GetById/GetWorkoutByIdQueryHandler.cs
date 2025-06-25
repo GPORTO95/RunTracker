@@ -23,8 +23,8 @@ internal sealed class GetWorkoutByIdQueryHandler(IDBConnectionFactory factory)
                 e.targetType AS TargetType,
                 e.distance AS Distance,
                 e.duration AS Duration
-            FROM workouts w
-            LEFT JOIN exercises e ON e.workout_id = w.id
+            FROM training.Workouts w
+            LEFT JOIN training.Exercises e ON e.workout_id = w.id
             WHERE w.id = @WorkoutId
             """;
 

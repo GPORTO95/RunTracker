@@ -77,7 +77,5 @@ public static class DependencyInjection
                 configuration.GetConnectionString("Database")));
 
         services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(1));
-
-        services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
     }
 }

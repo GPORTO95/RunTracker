@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Modules.Training.Application.Abstractions.Data;
@@ -18,7 +19,10 @@ public sealed class TrainingDbContext(DbContextOptions<TrainingDbContext> option
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema(Schema.Training);
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrainingDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
     }
 
     public async Task<IDbTransaction> BeginTransactionAsync()

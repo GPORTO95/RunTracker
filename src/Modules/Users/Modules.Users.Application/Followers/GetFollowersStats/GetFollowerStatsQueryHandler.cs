@@ -20,12 +20,12 @@ internal sealed class GetFollowerStatsQueryHandler(IDBConnectionFactory factory)
                 @UserId AS UserId,
                 (
                     SELECT COUNT(*)
-                    FROM followers f
+                    FROM users.Followers f
                     WHERE f.followed_id = @UserId
                 ) AS FollowerCount,
                 (
                     SELECT COUNT(*)
-                    FROM followers f
+                    FROM users.Followers f
                     WHERE f.user_id = @UserId
                 ) AS FollowingCount
             """;

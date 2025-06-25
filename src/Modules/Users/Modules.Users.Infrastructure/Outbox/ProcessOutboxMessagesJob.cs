@@ -1,5 +1,4 @@
-﻿
-using System.Data;
+﻿using System.Data;
 using Application.Abstractions.Data;
 using Dapper;
 using MediatR;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SharedKernel;
 
-namespace Infrastructure.Outbox;
+namespace Modules.Users.Infrastructure.Outbox;
 
 internal sealed class ProcessOutboxMessagesJob : IProcessOutboxMessagesJob
 {
@@ -90,7 +89,7 @@ internal sealed class ProcessOutboxMessagesJob : IProcessOutboxMessagesJob
         const string sql =
             """
             SELECT id, content
-            FROM OutboxMessages
+            FROM users.OutboxMessages
             WHERE ProcessedOnUtc IS NULL
             ORDER BY CreatedOnUtc 
             LIMIT @BatchSize
@@ -113,7 +112,7 @@ internal sealed class ProcessOutboxMessagesJob : IProcessOutboxMessagesJob
     {
         const string sql =
             """
-            UPDATE OutboxMessages
+            UPDATE users.OutboxMessages
             SET ProcessedOnUtc = @ProcessedOnUtc, Error = @Error
             WHERE Id = @Id
             """;

@@ -19,7 +19,7 @@ internal sealed class GetUserByIdQueryHandler(IDBConnectionFactory factory)
                 u.email AS Email,
                 u.name AS Name,
                 u.has_public_profile AS HasPublicProfile
-            FROM Users u
+            FROM users.Users u
             WHERE u.id = @UserId
             """;
 

@@ -8,6 +8,8 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.ToTable(TableNames.Users);
+
         builder.HasKey(u => u.Id);
 
         builder.ComplexProperty(

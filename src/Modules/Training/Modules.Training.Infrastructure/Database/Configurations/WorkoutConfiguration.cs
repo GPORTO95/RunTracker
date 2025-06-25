@@ -8,6 +8,8 @@ internal sealed class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
 {
     public void Configure(EntityTypeBuilder<Workout> builder)
     {
+        builder.ToTable(TableNames.Workouts);
+
         builder.HasKey(w => w.Id);
 
         builder.HasMany(w => w.Exercises)

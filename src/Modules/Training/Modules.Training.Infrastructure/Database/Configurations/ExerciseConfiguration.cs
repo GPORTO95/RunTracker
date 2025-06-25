@@ -8,6 +8,8 @@ internal sealed class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
 {
     public void Configure(EntityTypeBuilder<Exercise> builder)
     {
+        builder.ToTable(TableNames.Exercises);
+
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Distance)

@@ -18,8 +18,8 @@ internal sealed class GetRecentFollowersQueryHandler(IDBConnectionFactory factor
             SELECT
                 u.id AS Id,
                 u.name AS Name
-            FROM followers f
-            JOIN users u ON u.id = f.user_id
+            FROM users.Followers f
+            JOIN users.Users u ON u.id = f.user_id
             WHERE f.followed_id = @UserId
             ORDER BY created_on_utc DESC
             LIMIT @Limit

@@ -9,6 +9,8 @@ internal sealed class ActivityConfiguration : IEntityTypeConfiguration<Activity>
 {
     public void Configure(EntityTypeBuilder<Activity> builder)
     {
+        builder.ToTable(TableNames.Activities);
+
         builder.HasKey(a => a.Id);
 
         builder.Property(e => e.Distance)
