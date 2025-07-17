@@ -21,7 +21,7 @@ public sealed class Workout : Entity
 
     public string Name { get; private set; }
 
-    public List<Exercise> Exercises => _exercises.ToList();
+    public IReadOnlyList<Exercise> Exercises => _exercises.ToList();
 
     public Result AddExercise(
         ExerciseType exerciseType,
@@ -46,13 +46,17 @@ public sealed class Workout : Entity
         return Result.Success();
     }
 
-    public void RemoveExercise(Exercise exercise)
+    public Result RemoveExercise(Guid exerciseId)
     {
-        _exercises.Remove(exercise);
-    }
+        Exercise? exercise = _exercises.Find(e => e.Id == exerciseId);
 
-    public void ClearExercises()
-    {
-        _exercises.Clear();
+        if (exercise is null)
+        {
+            return Result.Failure(ExerciseErrors.NotFound(exerciseId));
+        }
+
+        _exercises.Remove(exercise);
+
+        return Result.Success();
     }
 }

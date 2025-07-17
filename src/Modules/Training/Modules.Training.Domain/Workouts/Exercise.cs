@@ -34,7 +34,7 @@ public sealed class Exercise : Entity
 
     public TimeSpan? Duration { get; private set; }
 
-    public static Result<Exercise> Create(
+    internal static Result<Exercise> Create(
         Guid workoutId,
         ExerciseType exerciseType,
         TargetType targetType,

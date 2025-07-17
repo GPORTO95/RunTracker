@@ -17,14 +17,12 @@ internal sealed class RemoveExerciseCommandHandler(IWorkoutRepository workoutRep
             return Result.Failure(WorkoutErrors.NotFound(request.WorkoutId));
         }
 
-        Exercise? exercise = workout.Exercises.Find(e => e.Id == request.ExerciseId);
+        Result result = workout.RemoveExercise(request.ExerciseId);
 
-        if (exercise is null)
+        if (result.IsFailure)
         {
-            return Result.Failure(ExerciseErrors.NotFound(request.ExerciseId));
+            return result;
         }
-
-        workout.RemoveExercise(exercise);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
